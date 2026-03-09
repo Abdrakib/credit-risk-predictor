@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Credit Risk Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Customer Credit Risk Prediction</h1>
+            <p class="subtitle">Evaluate creditworthiness with our ML-powered risk assessment</p>
+        </header>
+
+        <main class="card">
+            <form id="predict-form" class="form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="AMT_INCOME_TOTAL">Annual Income ($)</label>
+                        <input type="number" id="AMT_INCOME_TOTAL" name="AMT_INCOME_TOTAL" min="0" step="1000" value="202500" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AMT_CREDIT">Credit Amount ($) <span class="info-icon" data-tooltip="Total amount borrowed from the bank." aria-label="Total amount borrowed from the bank.">ⓘ</span></label>
+                        <input type="number" id="AMT_CREDIT" name="AMT_CREDIT" min="0" step="100" value="406597">
+                    </div>
+                    <div class="form-group">
+                        <label for="AMT_ANNUITY">Annuity Amount ($) <span class="info-icon" data-tooltip="Yearly loan repayment amount." aria-label="Yearly loan repayment amount.">ⓘ</span></label>
+                        <input type="number" id="AMT_ANNUITY" name="AMT_ANNUITY" min="0" step="10" value="24700">
+                    </div>
+                    <div class="form-group">
+                        <label for="AMT_GOODS_PRICE">Goods Price ($) <span class="info-icon" data-tooltip="Price of the purchased item or asset." aria-label="Price of the purchased item or asset.">ⓘ</span></label>
+                        <input type="number" id="AMT_GOODS_PRICE" name="AMT_GOODS_PRICE" min="0" step="100" value="406597">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age (years)</label>
+                        <input type="number" id="age" name="age" min="18" max="100" value="41" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CNT_CHILDREN">Number of Children</label>
+                        <input type="number" id="CNT_CHILDREN" name="CNT_CHILDREN" min="0" max="20" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="CNT_FAM_MEMBERS">Family Members</label>
+                        <input type="number" id="CNT_FAM_MEMBERS" name="CNT_FAM_MEMBERS" min="0" max="20" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="DAYS_EMPLOYED">Days Employed <span class="info-icon" data-tooltip="Number of days employed (negative = currently employed)." aria-label="Number of days employed, negative means currently employed.">ⓘ</span></label>
+                        <input type="number" id="DAYS_EMPLOYED" name="DAYS_EMPLOYED" value="-2182">
+                    </div>
+                    <div class="form-group">
+                        <label for="EXT_SOURCE_1">External Score 1 <span class="info-icon" data-tooltip="Credit score from external agency (0–1, higher is better)." aria-label="Credit score from external agency, 0 to 1, higher is better.">ⓘ</span></label>
+                        <input type="number" id="EXT_SOURCE_1" name="EXT_SOURCE_1" min="0" max="1" step="0.01" placeholder="0.0–1.0">
+                    </div>
+                    <div class="form-group">
+                        <label for="EXT_SOURCE_2">External Score 2 <span class="info-icon" data-tooltip="Credit score from external agency (0–1, higher is better)." aria-label="Credit score from external agency, 0 to 1, higher is better.">ⓘ</span></label>
+                        <input type="number" id="EXT_SOURCE_2" name="EXT_SOURCE_2" min="0" max="1" step="0.01" placeholder="0.0–1.0">
+                    </div>
+                    <div class="form-group">
+                        <label for="EXT_SOURCE_3">External Score 3 <span class="info-icon" data-tooltip="Credit score from external agency (0–1, higher is better)." aria-label="Credit score from external agency, 0 to 1, higher is better.">ⓘ</span></label>
+                        <input type="number" id="EXT_SOURCE_3" name="EXT_SOURCE_3" min="0" max="1" step="0.01" placeholder="0.0–1.0">
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_CONTRACT_TYPE">Contract Type <span class="info-icon" data-tooltip="Type of loan agreement." aria-label="Type of loan agreement.">ⓘ</span></label>
+                        <select id="NAME_CONTRACT_TYPE" name="NAME_CONTRACT_TYPE">
+                            <option value="Cash loans">Cash loans</option>
+                            <option value="Revolving loans">Revolving loans</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CODE_GENDER">Gender</label>
+                        <select id="CODE_GENDER" name="CODE_GENDER">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="XNA">XNA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_OWN_CAR">Own Car</label>
+                        <select id="FLAG_OWN_CAR" name="FLAG_OWN_CAR">
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_OWN_REALTY">Own Realty</label>
+                        <select id="FLAG_OWN_REALTY" name="FLAG_OWN_REALTY">
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_INCOME_TYPE">Income Type</label>
+                        <select id="NAME_INCOME_TYPE" name="NAME_INCOME_TYPE">
+                            <option value="Working">Working</option>
+                            <option value="Commercial associate">Commercial associate</option>
+                            <option value="Pensioner">Pensioner</option>
+                            <option value="State servant">State servant</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Student">Student</option>
+                            <option value="Businessman">Businessman</option>
+                            <option value="Maternity leave">Maternity leave</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_EDUCATION_TYPE">Education</label>
+                        <select id="NAME_EDUCATION_TYPE" name="NAME_EDUCATION_TYPE">
+                            <option value="Secondary / secondary special">Secondary / secondary special</option>
+                            <option value="Higher education">Higher education</option>
+                            <option value="Incomplete higher">Incomplete higher</option>
+                            <option value="Lower secondary">Lower secondary</option>
+                            <option value="Academic degree">Academic degree</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_FAMILY_STATUS">Family Status</label>
+                        <select id="NAME_FAMILY_STATUS" name="NAME_FAMILY_STATUS">
+                            <option value="Married">Married</option>
+                            <option value="Single / not married">Single / not married</option>
+                            <option value="Civil marriage">Civil marriage</option>
+                            <option value="Separated">Separated</option>
+                            <option value="Widow">Widow</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_HOUSING_TYPE">Housing Type</label>
+                        <select id="NAME_HOUSING_TYPE" name="NAME_HOUSING_TYPE">
+                            <option value="House / apartment">House / apartment</option>
+                            <option value="Rented apartment">Rented apartment</option>
+                            <option value="With parents">With parents</option>
+                            <option value="Municipal apartment">Municipal apartment</option>
+                            <option value="Office apartment">Office apartment</option>
+                            <option value="Co-op apartment">Co-op apartment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="OCCUPATION_TYPE">Occupation</label>
+                        <select id="OCCUPATION_TYPE" name="OCCUPATION_TYPE">
+                            <option value="Core staff">Core staff</option>
+                            <option value="Sales staff">Sales staff</option>
+                            <option value="Managers">Managers</option>
+                            <option value="Drivers">Drivers</option>
+                            <option value="Laborers">Laborers</option>
+                            <option value="IT staff">IT staff</option>
+                            <option value="Accountants">Accountants</option>
+                            <option value="High skill tech staff">High skill tech staff</option>
+                            <option value="Cleaning staff">Cleaning staff</option>
+                            <option value="Cooking staff">Cooking staff</option>
+                            <option value="HR staff">HR staff</option>
+                            <option value="Low-skill Laborers">Low-skill Laborers</option>
+                            <option value="Medicine staff">Medicine staff</option>
+                            <option value="Private service staff">Private service staff</option>
+                            <option value="Realty agents">Realty agents</option>
+                            <option value="Secretaries">Secretaries</option>
+                            <option value="Security staff">Security staff</option>
+                            <option value="Waiters/barmen staff">Waiters/barmen staff</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn">Predict Risk</button>
+                </div>
+            </form>
+
+            <section id="result-section" class="result-section" aria-live="polite">
+                <div id="result-content"></div>
+                <div id="history-section" class="history-section">
+                    <h3 class="history-title">Prediction History</h3>
+                    <div id="history-table-wrapper" class="history-table-wrapper">
+                        <table id="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Income</th>
+                                    <th>Credit Amount</th>
+                                    <th>Probability</th>
+                                    <th>Risk Level</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-body"></tbody>
+                        </table>
+                    </div>
+                    <p id="history-empty" class="history-empty">No predictions yet. Submit the form to see history.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Customer Credit Risk Prediction &middot; ML-powered assessment</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
