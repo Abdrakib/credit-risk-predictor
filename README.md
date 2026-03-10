@@ -2,6 +2,12 @@
 
 Machine learning web application predicting customer credit default risk with an interactive interface and trained model.
 
+## Live Demo
+
+https://credit-risk-predictor-mpt9.onrender.com
+
+This project is fully deployed online using Render. Users can test the machine learning credit risk prediction model directly through the web interface.
+
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688.svg)](https://fastapi.tiangolo.com/)
 [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.6.1-orange.svg)](https://scikit-learn.org/)
